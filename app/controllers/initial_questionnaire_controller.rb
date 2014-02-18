@@ -38,6 +38,7 @@ class InitialQuestionnaireController < ApplicationController
       end
 
       step :done do 
+        proceed 'Submit my information'
         @trainer = params[:trainer]
         @group = params[:group]
         @area = params[:area]
@@ -46,7 +47,15 @@ class InitialQuestionnaireController < ApplicationController
       end
       
       submit do
-        logger.info 'sup'
+        item = InitialQuestionnaire.new
+        item.trainer = params[:trainer]
+        item.group = params[:group]
+        item.area = params[:area]
+        item.gender = params[:gender]
+        item.age =  params[:age]
+        item.save!
+
+        redirect_to '/initial'
       end
     end
   end
