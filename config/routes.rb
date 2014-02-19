@@ -3,6 +3,8 @@ Soilforlife::Application.routes.draw do
 
   namespace :admin do
     resources :initial_questionnaires
+    resources :final_questionnaires
+
   end
 
   devise_for :users

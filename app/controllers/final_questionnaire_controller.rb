@@ -30,13 +30,38 @@ class FinalQuestionnaireController < ApplicationController
         }
       end
 
+      step :still_growing do
+        select :still_growing , 'Since you finished the training are you still growing vegetables in your food garden?', {
+          'yes' => 'yes', 
+          'no' => 'no'
+        }
+      end
+
+      step :why_not_growing do
+        if params[:still_growing] == 'yes'
+           skip_to :health_compaired_to_last_year
+           return
+        end
+        input :why_not_growing, 'Why have you stopped growing vegetables?'
+      end
+
+      step :health_compaired_to_last_year do
+        select :HealthCompairedToLastYear, 'Compared to one year ago, how would you rate your health in general now?', {
+          'Much better' => 'Much better now than one year ago', 
+          'Somewhat better' => 'Somewhat better now than one year ago',
+          'The same' => 'About the same',
+          'Somewhat worse than one year ago' => 'Somewhat worse than one year ago',
+          'Much worse than one year ago' => 'Much worse than one year ago'
+        }
+      end
+
       step :done do
         proceed 'Submit my information'
       end
 
       submit do
         item = FinalQuestionnaire.new
-        itemy.overall_training_impression = params[:overall_training_impression]
+        item.overall_training_impression = params[:overall_training_impression]
         item.save!
 
         redirect_to '/final'
