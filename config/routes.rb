@@ -60,6 +60,7 @@ Soilforlife::Application.routes.draw do
   # just remember to delete public/index.html.
   match '/initial(/:action)', :controller => :initial_questionnaire
   match '/final(/:action)', :controller => :final_questionnaire
+  match '/visit(/:action)', :controller => :visit
 
   # See how all your routes lay out with "rake routes"
 
