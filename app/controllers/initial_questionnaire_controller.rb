@@ -43,7 +43,6 @@ class InitialQuestionnaireController < ApplicationController
         @group = params[:group]
         @area = params[:area]
         @gender = params[:gender]
-        logger.info 'completed'
       end
       
       submit do
