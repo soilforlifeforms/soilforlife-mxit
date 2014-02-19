@@ -1,4 +1,6 @@
 Soilforlife::Application.routes.draw do
+  get "visit/index"
+
   namespace :admin do
     resources :initial_questionnaires
   end

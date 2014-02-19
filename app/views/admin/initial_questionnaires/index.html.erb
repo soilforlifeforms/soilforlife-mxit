@@ -1,0 +1,15 @@
+<table width="100%" border="1">
+  <% @results.each do |result| %>
+    <tr>
+      <td>
+        <%= result.trainer %>
+      </td>
+      <td>
+        <%= result.group %>
+      </td>
+      <td>
+        <%= result.area %>
+      </td>
+    </tr>
+  <% end %>
+</table>
