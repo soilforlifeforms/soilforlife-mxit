@@ -29,7 +29,7 @@ class FinalQuestionnaireController < ApplicationController
       end
 
       step :change_of_adresss_qualitative do 
-        if params[:change_of_adresss] = 'No' 
+        if params[:change_of_address] == 'No' 
            skip_to :change_of_maritial_status
            return
          end
@@ -44,7 +44,7 @@ class FinalQuestionnaireController < ApplicationController
       end
 
       step :change_of_maritial_status_qualitative do 
-        if params[:change_of_maritial_status] = 'No' 
+        if params[:change_of_maritial_status] == 'No' 
            skip_to :change_of_living_arangements
            return
          end
@@ -67,7 +67,7 @@ class FinalQuestionnaireController < ApplicationController
       end
 
       step :change_of_living_arangements_qualitative do 
-        if params[:change_of_living_arangements] = 'No' 
+        if params[:change_of_living_arangements] == 'No' 
            skip_to :change_of_employment
            return
          end
@@ -82,7 +82,7 @@ class FinalQuestionnaireController < ApplicationController
       end
 
           step :employment do
-        if params[:change_of_employment] = 'No' 
+        if params[:change_of_employment] == 'No' 
            skip_to :understandable_training
            return
          end
@@ -452,7 +452,7 @@ class FinalQuestionnaireController < ApplicationController
          select :future_gardening_plans , 'Now that the food garden programme has ended are you going to continue to grow food?', {
           'Yes' => 'Yes', 
           'No' => 'No',
-          'only if' => 'only if....',
+          'Only if' => 'Only if....',
         }
         end
 
@@ -491,16 +491,7 @@ class FinalQuestionnaireController < ApplicationController
         step :trainer_notes_fq do
           input :Trainer_notes_fq, 'Is there anything else you, as the trainer would like to note?'
         end
-
-        step :overall_training_impression do
-          select :overall_training_impression, 'Overall, I thought the training was very good', {
-            'Strongly disagree' => 'Strongly disagree', 
-           'Disagree' => 'Disagree',
-           'No Opinion' => 'No Opinion',
-            'Agree' => 'Agree',
-            'Strongly Agree' => 'Strongly Agree'
-        }
-      end
+        
       step :done do
         proceed 'Submit my information'
       end
@@ -563,7 +554,7 @@ class FinalQuestionnaireController < ApplicationController
         item.feeling_towards_gardening = params [:feeling_towards_gardening]
         item.spreading_knowelage = params [:spreading_knowelage]
         item.spreading_knowelage_qualitative_pro = params [:spreading_knowelage_qualitative_pro]
-        items.preading_knowelage_qualitative_neg. = params [:spreading_knowelage_qualitative_neg]
+        items.spreading_knowelage_qualitative_neg = params [:spreading_knowelage_qualitative_neg]
         item.future_gardening_plans = params [:future_gardening_plans]
         item.needs_to_continue_gardening = params [:needs_to_continue_gardening]
         item.knowlage_of_life_skills = params [:knowlage_of_life_skills]

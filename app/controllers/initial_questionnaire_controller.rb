@@ -153,7 +153,7 @@ class InitialQuestionnaireController < ApplicationController
 
       step :full_time_employment do
         if params[:employment] == 'No' 
-           skip_to :earning_power
+           skip_to :grant_recieved
            return
          end
         select :full_time_employment, 'Are you currently employed full time?', {
@@ -304,8 +304,8 @@ class InitialQuestionnaireController < ApplicationController
 
         step :other_organisations do
         select :other_organisations , 'Have you applied to any other organisations for help in this garden?', {
-          'yes' => 'yes', 
-          'no' => 'no',
+          'Yes' => 'Yes', 
+          'No' => 'No',
         }
         end
 
@@ -320,8 +320,8 @@ class InitialQuestionnaireController < ApplicationController
 
       step :help_recieved do
         select :help_recieved, 'Have you received any help in the past year for this garden?', {
-          'yes' => 'yes', 
-          'no' => 'no',
+          'Yes' => 'Yes', 
+          'No' => 'No',
         }
         end
 
