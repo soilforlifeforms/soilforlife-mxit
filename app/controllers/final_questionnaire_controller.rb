@@ -16,35 +16,32 @@ class FinalQuestionnaireController < ApplicationController
         input :group, 'Group'
       end
 
-      step :trainee_first_name do
-        input :trainee_first_name, 'What is your first name?'
-      end
-
-      step :trainee_last_name do
-        input :trainee_last_name, 'What is your surname?'
-      end
-
       step :trainee_id_number do
         input :trainee_id_number, 'What is your ID number?'
      #   validate :sa_id_number, 'You must enter a valid South African ID number'
       end
 
-      step :change_of_adresss do
-        select :change_of_adresss, 'have you changed adress since you started at Soil For Life?'
-          'Yes' => 'Yes'
-          'No'=> 'No'
+      step :change_of_address do
+        select :change_of_address, 'have you changed adress since you started at Soil For Life?', {
+         'Yes' => 'Yes',
+         'No' => 'No',
+        }
+      end
 
       step :change_of_adresss_qualitative do 
         if params[:change_of_adresss] = 'No' 
            skip_to :change_of_maritial_status
            return
          end
-        input :change_of_adresss_qualitative, "What is your new address?"
+        input :change_of_adresss_qualitative, 'What is your new address?'
+      end
 
       step :change_of_maritial_status do
-        select :change_of_maritial_status, 'Has your maritial status changed since you started at Soil For Life?'
-          'Yes' => 'Yes'
-          'No'=> 'No' 
+        select :change_of_maritial_status, 'Has your maritial status changed since you started at Soil For Life?', {
+          'Yes' => 'Yes',
+          'No'=> 'No',
+        }
+      end
 
       step :change_of_maritial_status_qualitative do 
         if params[:change_of_maritial_status] = 'No' 
@@ -63,9 +60,11 @@ class FinalQuestionnaireController < ApplicationController
       end
 
       step :change_of_living_arangements do
-        select :change_of_living_arangements, 'Has your living arangments (how many people live in your house) changed since you started at Soil For Life?'
-          'Yes' => 'Yes'
-          'No'=> 'No' 
+        select :change_of_living_arangements, 'Has your living arangments (how many people live in your house) changed since you started at Soil For Life?', {
+          'Yes' => 'Yes',
+          'No'=> 'No',
+        }
+      end
 
       step :change_of_living_arangements_qualitative do 
         if params[:change_of_living_arangements] = 'No' 
@@ -73,11 +72,14 @@ class FinalQuestionnaireController < ApplicationController
            return
          end
         input :change_of_living_arangements_qualitative, "How many people now live in your household?"
+      end
 
            step :change_of_employment do
-        select :change_of_employment, 'Has your employment status changed since you started at Soil For Life?'
-          'Yes' => 'Yes'
-          'No'=> 'No' 
+        select :change_of_employment, 'Has your employment status changed since you started at Soil For Life?', {
+          'Yes' => 'Yes',
+          'No'=> 'No',
+        }
+      end
 
           step :employment do
         if params[:change_of_employment] = 'No' 
@@ -90,12 +92,13 @@ class FinalQuestionnaireController < ApplicationController
           'No' => 'No',
         }
       end
+
+
       step :full_time_employment do
         if params[:employment] == 'No' 
            skip_to :understandable_training
            return
          end
-
         select :full_time_employment, 'Are you currently employed full time?', {
           'Yes' => 'Yes', 
           'No' => 'No',
@@ -140,7 +143,7 @@ class FinalQuestionnaireController < ApplicationController
           'Disagree' => 'Disagree',
           'No Opinion' => 'No Opinion',
           'Agree' => 'Agree',
-          'Strongly Agree' => 'Strongly Agree'
+          'Strongly Agree' => 'Strongly Agree',
         }
       end
 
@@ -150,7 +153,7 @@ class FinalQuestionnaireController < ApplicationController
           'Disagree' => 'Disagree',
           'No Opinion' => 'No Opinion',
           'Agree' => 'Agree',
-          'Strongly Agree' => 'Strongly Agree'
+          'Strongly Agree' => 'Strongly Agree',
         }
       end
 
@@ -186,13 +189,14 @@ class FinalQuestionnaireController < ApplicationController
         end
 
 # It would be nice to only show WhyNotGrowing if trainer says no
-      step :WhyNotGrowing do
+      step :why_not_growing do
          if params[:still_growing_fq] == 'Yes' 
            skip_to :type_of_veg_garden_trench_bed
            return
          end
-        input :WhyNotGrowing, 'Why have you stopped growing vegetables?'
+        input :why_not_growing, 'Why have you stopped growing vegetables?'
       end
+
 
       step :type_of_veg_garden_trench_bed do
         select :type_of_veg_garden_trench_bed, 'Do you have a trench-bed in your garden?', {
@@ -206,7 +210,6 @@ class FinalQuestionnaireController < ApplicationController
            skip_to :type_of_veg_garden_eco_circle
            return
          end
-
         select :type_of_veg_garden_trench_bed_amount, 'How many trench beds do you have in your food garden?', {
           'one' => 'one',
           'two' => 'two',
@@ -217,9 +220,10 @@ class FinalQuestionnaireController < ApplicationController
           'six+' => 'six+',
           }
         end
+      
 
       step :type_of_veg_garden_tyre_garden do
-        select :type_of_veg_garden_tyre_garden 'Do you have a trench-bed in your garden?', {
+        select :type_of_veg_garden_tyre_garden, 'Do you have a tyre garden?', {
           'Yes' => 'Yes', 
           'No' => 'No',
         }
@@ -266,157 +270,237 @@ class FinalQuestionnaireController < ApplicationController
           'six+' => 'six+',
         }
       end
- step :currently_growing_fq do
-        input :WhatCurrentlyGrowingFQ, 'What vegetables are you currently growing?', {
-        end
-
-          #Again if you think we should shorten this one we can look at a way of doing that. also would need to be multi select.
-
-           step :StillBuying do
-           select :StillBuying , 'Are you still buying vegetables? ', {
-           'yes' => 'yes', 
-           'no' => 'no',
-        end
-
-        #Question that would require grabing information from DB: Are you still spending around XXXXXX per week?
 
 
-      step :WhatHasTraineeDoneWithGrownVegitablesFQ do
-        select :WhatHasTraineeDoneWithGrownVegitablesFQ, 'What have you been doing with the vegetables that you have grown over the past year? ', {
-          'Eating' => 'Eating', 
-          'Selling' => 'Selling',
-          'Swapping' => 'Swapping',
-          'Sharing' => 'Sharing them with friends / neighbours',
-          'Soup Kitchen' => 'Giving them to a soup kitchen',
-          'jams and chutney' => 'Making jams and chutneys',
-          'Other' => 'Other',
+      step :currently_growing_fq do
+        input :currently_growing_fq, 'What vegetables are you currently growing?'
+       end
+
+      step :still_buying do
+        select :still_buying , 'Are you still buying vegetables? ', {
+          'Yes' => 'Yes', 
+          'No' => 'No',
+        }
         end
 
 
-        step :OtherUsageOfVegFQ do
-        input :OtherUsageOfVegFQ, 'What else are you doing with your vegetables?'
+      step :money_spent_on_veg_fq do
+          if params[:still_buying] == 'No' 
+          skip_to :has_trainee_sold_grown_veg
+           return
+         end
+        select :money_spent_on_veg_fq, 'How much money did you spend on vegetables in the last month?', {
+          'Dont know' => 'Dont know', 
+          'R1-R50' => 'R1-R50',
+          'R51-R100' => 'R51-R100',
+          'R101-R150' => 'R101-R150',
+          'R151-R200' => 'R151-R200', 
+          'R201-R250' => 'R201-R250',
+          'R251-R300' => 'R251-R300',
+          'R301-R350' => 'R301-R350',
+          'R351-R400' => 'RR351-R400',
+          'R401+' => 'R401+',
+          'N/A' => 'rather not say',
+        }
+        end
+
+
+
+      step :has_trainee_sold_grown_veg do
+        select :has_trainee_sold_grown_veg, 'Have you been selling vegetables that you have grown over the past year? ', {
+          'Yes' => 'Yes', 
+          'No' => 'No',
+        }
       end
 
-    
-    #Question that would require grabing information from DB: Are you still eating around xxx meals per day?
-    # This difference is noted not just updated if there is a diffence.
+      step :profit_from_selling_veg do
+        if params[:has_trainee_sold_grown_veg] == 'No'
+           skip_to :has_trainee_swapped_grown_veg
+           return
+         end
+        select :profit_from_selling_veg, 'How much have you been making on average per week by selling your vegetables?', {
+          'R1-50' => 'R1-50', 
+          'R51-R100' => 'R51-R100',
+          'R151-R200' => 'R201+',
+          'N/A' => 'Rather not say',
+        }
+        end
 
-   #Question that would require grabing information from DB: Are around x% of your meals including vegetables?
+      step :has_trainee_swapped_grown_veg do
+        select :has_trainee_sold_grown_veg, 'Have you been swapping vegetables that you have grown over the past year? ', {
+          'Yes' => 'Yes', 
+          'No' => 'No',
+        }
+      end
 
-      step :HealthCompairedToLastYear do
-        select :HealthCompairedToLastYear, 'Compared to one year ago, how would you rate your health in general now?', {
+       step :has_trainee_shared_grown_veg do
+        select :has_trainee_shared_grown_veg, 'Have you been sharing vegetables that you have grown over the past year? ', {
+          'Yes' => 'Yes', 
+          'No' => 'No',
+        }
+      end
+
+      step :has_trainee_given_grown_veg_to_soup_kitchen do
+        select :has_trainee_given_grown_veg_to_soup_kitchen, 'Have you been giving vegetables that you have grown over the past year to a soup kitchen? ', {
+          'Yes' => 'Yes', 
+          'No' => 'No',
+        }
+      end
+
+       step :has_trainee_made_jams_and_chutney do
+        select :has_trainee_made_jams_and_chutney, 'Have you been making jams and chutneys from the vegetables that you have grown over the past year? ', {
+          'Yes' => 'Yes', 
+          'No' => 'No',
+        }
+      end
+
+      step :has_trainee_other_grown_veg do
+        select :has_trainee_other_grown_veg, 'Have you been doing anything else from the vegetables you have grown over the past year? ', {
+          'Yes' => 'Yes', 
+          'No' => 'No',
+        }
+      end
+
+      step :has_trainee_other_grown_veg_qualitative do
+        if params[:has_trainee_other_grown_veg] == 'No'
+           skip_to :where_veg_is_bought
+           return
+         end
+        input :has_trainee_other_grown_veg_qualitative, 'What else have you been doing with your grown vegetables?'
+      end
+
+      step :health_compaired_to_last_year do
+        select :health_compaired_to_last_year, 'Compared to one year ago, how would you rate your health in general now?', {
           'Much better' => 'Much better now than one year ago', 
           'Somewhat better' => 'Somewhat better now than one year ago',
           'The same' => 'About the same',
           'Somewhat worse than one year ago' => 'Somewhat worse than one year ago',
           'Much worse than one year ago' => 'Much worse than one year ago',
+        }
         end
 
-           #Question that would require grabing information from DB: Are you still struggling with..... (health problems)
-
-              step :HealthProblemsFQ do
-        select :HealthProblemsFQ, 'Do you have any of the following health problems:', {
-          'Diabetes' => 'High sugar (diabetes)', 
-          'Cancer' => 'Cancer',
-          'Arthritis' => 'Arthritis',
-          'TB' => 'TB',
-          'Any other serious condition' => 'Any other serious condition',
-          'None of the above' => 'None of the above', 
-        end
-
-         step :FeelingTowardsGardening do
-        input :FeelingTowardsGardening, 'How does working in the garden make you feel?'
+         step :health_problems_diabetes do
+        select :health_problems_diabetes, 'Do you have diabetes:', {
+          'Yes' => 'Yes', 
+          'No' => 'No',
+        }
       end
 
-        step :SpreadingKnowelage do
-         select :SpreadingKnowelage , 'Have you helped someone else to make a food garden in the last year?', {
-          'yes' => 'yes', 
-          'no' => 'no',
-        end
-
-        #If answers yes to SpreadingKnowelage ask "SpreadingKnowelageQualitativePro" and skip "SpreadingKnowelageQualitativeNeg"
-        # If no than show "SpreadingKnowelageQualitativeNeg" and skip "SpreadingKnowelageQualitativePro"
-
-         step :SpreadingKnowelageQualitativePro do
-        input :SpreadingKnowelageQualitativePro, 'Who did you help and how?'
+      step :health_problems_cancer do
+        select :health_problems_cancer, 'Do you have cancer:', {
+          'Yes' => 'Yes', 
+          'No' => 'No',
+        }
       end
 
-         step :SpreadingKnowelageQualitativeNeg do
-        input :SpreadingKnowelageQualitativeNeg, 'Why did you not help anyone else to create a garden?'
+       step :health_problems_arthritis do
+        select :health_problems_arthritis, 'Do you have arthritis:', {
+          'Yes' => 'Yes', 
+          'No' => 'No',
+        }
       end
 
-      step :FutureGardeningPlans do
-         select :FutureGardeningPlans , 'Now that the food garden programme has ended are you going to continue to grow food?', {
+       step :health_problems_tb do
+        select :health_problems_tb, 'Do you have arthritis:', {
+          'Yes' => 'Yes', 
+          'No' => 'No',
+        }
+      end
+
+       step :health_problems_other do
+        select :health_problems_other, 'Do you have any other serious health conditions?', {
+          'Yes' => 'Yes', 
+          'No' => 'No',
+        }
+      end
+
+      step :health_problems_other_qualitative do
+        if params[:health_problems_other] == 'No'
+           skip_to :anything_else_to_add
+           return
+         end
+        input :health_problems_other_qualitative, 'Where other health problems do you have?'
+      end
+
+      step :feeling_towards_gardening do
+        input :feeling_towards_gardening, 'How does working in the garden make you feel?'
+      end
+
+        step :spreading_knowelage do
+         select :spreading_knowelage , 'Have you helped someone else to make a food garden in the last year?', {
+          'Yes' => 'Yes', 
+          'No' => 'No',
+        }
+        end
+
+         step :spreading_knowelage_qualitative_pro do
+          if params[:spreading_knowelage] == 'No'
+           skip_to :spreading_knowelage_qualitative_neg
+           return
+         end
+        input :spreading_knowelage_qualitative_pro, 'Who did you help and how?'
+      end
+
+         step :spreading_knowelage_qualitative_neg do
+        if params[:spreading_knowelage] == 'Yes'
+           skip_to :future_gardening_plans
+           return
+         end
+        input :spreading_knowelage_qualitative_neg, 'Why did you not help anyone else to create a garden?'
+      end
+      step :future_gardening_plans do
+         select :future_gardening_plans , 'Now that the food garden programme has ended are you going to continue to grow food?', {
+          'Yes' => 'Yes', 
+          'No' => 'No',
+          'only if' => 'only if....',
+        }
+        end
+
+        step :needs_to_continue_gardening do
+          if params[:future_gardening_plans] != 'Only if'
+           skip_to :knowlage_of_life_skills
+           return
+         end
+          input :needs_to_continue_gardening, 'What do you need to continue gardening?'
+        end
+
+        step :knowlage_of_life_skills do
+         select :knowlage_of_life_skills , 'Do you know about the Soil for Life "Life Skills" programme?', {
           'yes' => 'yes', 
           'no' => 'no',
-          'only if' => 'only if'
+        }
         end
 
-        #Only show FutureGardeningNeeds if Only if is chosen in FutureGardeningPlans.
-
-        step :FutureGardeningNeeds do
-          input :FutureGardeningNeeds, 'What do you need to continue gardening?'
-        end
-
-        step :KnowlageOfLifeSkills do
-         select :KnowlageOfLifeSkills , 'Do you know about the Soil for Life "Life Skills" programme?', {
+        step :enrollment_plan do
+         select :enrollment_plan , 'Are you planning on enrolling in the "life Skills" programme? ', {
           'yes' => 'yes', 
           'no' => 'no',
+        }
         end
 
-          step :EnrollmentPlan do
-         select :EnrollmentPlan , 'Are you planning on enrolling in the "life Skills" programme? ', {
-          'yes' => 'yes', 
-          'no' => 'no',
+        step :lifeskills_activity_recomendations do
+          input :lifeskills_activity_recomendations, 'What sort of actives would you like to do in the Life Skills Programme?'
         end
 
-          step :ActivityRecomendations do
-          input :ActivityRecomendations, 'What sort of actives would you like to do in the Life Skills Programme?'
-        end
-
-         step :FinalWordsFQ do
-          input :FinalWordsFQ, 'Is there anything else you would like to say about Soil for Life?'
+         step :final_words_fq do
+          input :final_words_fq, 'Is there anything else you would like to say about Soil for Life?'
         end
 
         #if possible, we would like to be able to take a picture of the  trainee and also their "after picture" of their garden.
 
-         step :TrainerNotesFQ do
-          input :TrainerNotesFQ, 'Is there anything else you, as the trainer would like to note?'
-      step :overall_training_impression do
-        select :overall_training_impression, 'Overall, I thought the training was very good', {
-          'Strongly disagree' => 'Strongly disagree', 
-          'Disagree' => 'Disagree',
-          'No Opinion' => 'No Opinion',
-          'Agree' => 'Agree',
-          'Strongly Agree' => 'Strongly Agree'
-        }
-      end
-
-      step :still_growing do
-        select :still_growing , 'Since you finished the training are you still growing vegetables in your food garden?', {
-          'yes' => 'yes', 
-          'no' => 'no'
-        }
-      end
-
-      step :why_not_growing do
-        if params[:still_growing] == 'yes'
-           skip_to :health_compaired_to_last_year
-           return
+        step :trainer_notes_fq do
+          input :Trainer_notes_fq, 'Is there anything else you, as the trainer would like to note?'
         end
-        input :why_not_growing, 'Why have you stopped growing vegetables?'
-      end
 
-      step :health_compaired_to_last_year do
-        select :HealthCompairedToLastYear, 'Compared to one year ago, how would you rate your health in general now?', {
-          'Much better' => 'Much better now than one year ago', 
-          'Somewhat better' => 'Somewhat better now than one year ago',
-          'The same' => 'About the same',
-          'Somewhat worse than one year ago' => 'Somewhat worse than one year ago',
-          'Much worse than one year ago' => 'Much worse than one year ago'
+        step :overall_training_impression do
+          select :overall_training_impression, 'Overall, I thought the training was very good', {
+            'Strongly disagree' => 'Strongly disagree', 
+           'Disagree' => 'Disagree',
+           'No Opinion' => 'No Opinion',
+            'Agree' => 'Agree',
+            'Strongly Agree' => 'Strongly Agree'
         }
       end
-
       step :done do
         proceed 'Submit my information'
       end
@@ -424,10 +508,75 @@ class FinalQuestionnaireController < ApplicationController
       submit do
         item = FinalQuestionnaire.new
         item.overall_training_impression = params[:overall_training_impression]
+        item.trainer = params [:trainer]
+        item.group = params [:group]
+        item.trainee_id_number = params [:trainee_id_number]
+        item.change_of_address = params [:change_of_address]
+        item.change_of_adresss_qualitative = params [:change_of_adresss_qualitative]
+        item.change_of_maritial_status = params [:change_of_maritial_status]
+        item.change_of_maritial_status_qualitative = params [:change_of_maritial_status_qualitative]
+        item.change_of_living_arangements = params [:change_of_living_arangements]
+        item.change_of_living_arangements_qualitative = params [:change_of_living_arangements_qualitative]
+        item.change_of_employment = params [:change_of_employment]
+        item.employment = params [:employment]
+        item.full_time_employment = params [:full_time_employment]
+        item.part_time_employment  = params [:part_time_employment]
+        item.casual_employment = params [:casual_employment]
+        item.other_employment = params [:other_employment]
+        item.other_employment_qualitative = params [:other_employment_qualitative]
+        item.understandable_training = params [:understandable_training]
+        item.helpful_support_visits = params [:helpful_support_visits]
+        item.pros_about_training = params [:pros_about_training]
+        item.improvements_about_training = params [:improvements_about_training]
+        item.what_was_learntwhat_was_learnt_NB = params [:what_was_learnt]
+        item.what_was_learnt_NB = params [:what_was_learnt_NB]
+        item.most_significant_change = params [:most_significant_change]
+        item.most_significant_change_qualitativestill_growing_fq = params [:most_significant_change_qualitative]
+        item.still_growing_fq = params [:still_growing_fq]
+        item.why_not_growing = params [:why_not_growing]
+        item.type_of_veg_garden_trench_bed = params [:type_of_veg_garden_trench_bed]
+        item.type_of_veg_garden_trench_bed_amount = params [:type_of_veg_garden_trench_bed_amount]
+        item.type_of_veg_garden_tyre_garden = params [:type_of_veg_garden_tyre_garden]
+        item.type_of_veg_garden_eco_circle = params [:type_of_veg_garden_eco_circle]
+        item.type_of_veg_garden_container_garden = params [:type_of_veg_garden_container_garden]
+        item.type_of_veg_garden_other = params [:type_of_veg_garden_other]
+        item.type_of_veg_garden_other_qualitative = params [:type_of_veg_garden_other_qualitative]
+        item.picking_veg = params [:picking_veg]
+        item.currently_growing_fq = params [:currently_growing_fq]
+        item.still_buying = params [:still_buying]
+        item.money_spent_on_veg_fq = params [:money_spent_on_veg_fq]
+        item.has_trainee_sold_grown_veg = params [:has_trainee_sold_grown_veg]
+        item.profit_from_selling_veg = params [:profit_from_selling_vegprofit_from_selling_veg]
+        item.has_trainee_swapped_grown_veg = params [:has_trainee_swapped_grown_veg]
+        item.has_trainee_shared_grown_veg = params [:has_trainee_shared_grown_veg]
+        item.has_trainee_given_grown_veg_to_soup_kitchen = params [:has_trainee_given_grown_veg_to_soup_kitchen]
+        item.has_trainee_made_jams_and_chutney = params [:has_trainee_made_jams_and_chutney]
+        item.has_trainee_other_grown_veg  = params [:has_trainee_other_grown_veg]
+        item.has_trainee_other_grown_veg_qualitative = params [:has_trainee_other_grown_veg_qualitative]
+        item.health_compaired_to_last_year = params [:health_compaired_to_last_year]
+        item.health_problems_diabetes = params [:health_problems_diabetes]
+        item.health_problems_cancer = params [:health_problems_cancer]
+        item.health_problems_arthritis = params [:health_problems_arthritis]
+        item.health_problems_tb = params [:health_problems_tb]
+        item.health_problems_other = params [:health_problems_other]
+        item.health_problems_other_qualitative = params [:health_problems_other_qualitative]
+        item.feeling_towards_gardening = params [:feeling_towards_gardening]
+        item.spreading_knowelage = params [:spreading_knowelage]
+        item.spreading_knowelage_qualitative_pro = params [:spreading_knowelage_qualitative_pro]
+        items.preading_knowelage_qualitative_neg. = params [:spreading_knowelage_qualitative_neg]
+        item.future_gardening_plans = params [:future_gardening_plans]
+        item.needs_to_continue_gardening = params [:needs_to_continue_gardening]
+        item.knowlage_of_life_skills = params [:knowlage_of_life_skills]
+        item.enrollment_plan = params [:enrollment_plan]
+        item.lifeskills_activity_recomendations  = params [:lifeskills_activity_recomendations ]
+        item.final_words_fq = params [:final_words_fq]
+        item.trainer_notes_fq  = params [:trainer_notes_fq ]
+        item.overall_training_impression = params [:overall_training_impression]
+      
         item.save!
 
         redirect_to '/final'
-      end
-    end
-  end
 end
+  end
+    end
+      end

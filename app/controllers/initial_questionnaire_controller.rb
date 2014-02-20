@@ -579,7 +579,7 @@ class InitialQuestionnaireController < ApplicationController
            skip_to :anything_else_to_add
            return
          end
-        input :health_problems_other_qualitative, 'Where other health problems do you have?'
+        input :health_problems_other_qualitative, 'What other health problems do you have?'
       end
 
        step :anything_else_to_add do
