@@ -10,15 +10,17 @@ class VisitController < ApplicationController
 
        step :trainer do
         input :trainer, 'Trainer'
+        validate :not_blank, 'you must submit something'
       end
 
       step :group do
         input :group, 'Group'
+        validate :not_blank, 'you must submit something'
       end
 
       step :trainee_id_number do
         input :trainee_id_number, 'What is your ID number?'
-     #   validate :sa_id_number, 'You must enter a valid South African ID number'
+        validate :sa_id_number, 'You must enter a valid South African ID number'
       end
 
         step :still_growing_sv do
@@ -35,6 +37,7 @@ class VisitController < ApplicationController
            return
          end
           input :why_trainee_isnt_growing_sv, 'why is the trainee not groiwing anymore?'
+          validate :not_blank, 'you must submit something'
          end
 
         step :mini_nursery do
@@ -61,6 +64,7 @@ class VisitController < ApplicationController
           3 stars- ok - the garden is practicing some of SFLs methods
           4 stars- good - the gardener is practcing many of SFLs methods
           5 stars- excellent - the gardener is practing most of SFLs methods'
+          validate :numeric, 'please use numeric value such as 1 or 2'
          end
 
        step :compost_heap do
@@ -83,6 +87,7 @@ class VisitController < ApplicationController
           3 stars- ok - the garden is practicing some of SFLs methods
           4 stars- good - the gardener is practcing many of SFLs methods
           5 stars- excellent - the gardener is practing most of SFLs methods'
+          validate :numeric, 'please use numeric value such as 1 or 2'
         end
 
          step :trench_bed do
@@ -109,6 +114,7 @@ class VisitController < ApplicationController
           3 stars- ok - the garden is practicing some of SFLs methods
           4 stars- good - the gardener is practcing many of SFLs methods
           5 stars- excellent - the gardener is practing most of SFLs methods'
+          validate :numeric, 'please use numeric value such as 1 or 2'
         end
         
 
@@ -136,6 +142,7 @@ class VisitController < ApplicationController
           3 stars- ok - the garden is practicing some of SFLs methods
           4 stars- good - the gardener is practcing many of SFLs methods
           5 stars- excellent - the gardener is practing most of SFLs methods'
+          validate :numeric, 'please use numeric value such as 1 or 2'
         end
 
 
@@ -164,6 +171,7 @@ class VisitController < ApplicationController
           3 stars- ok - the garden is practicing some of SFLs methods
           4 stars- good - the gardener is practcing many of SFLs methods
           5 stars- excellent - the gardener is practing most of SFLs methods'
+          validate :numeric, 'please use numeric value such as 1 or 2'
         end
         
 
@@ -195,7 +203,8 @@ class VisitController < ApplicationController
            skip_to :trainee_future_plans
            return
          end
-        input :trainee_selling_sp_qualitative, 'What has the trainnee sold in the last month??'
+        input :trainee_selling_sp_qualitative, 'What has the trainnee sold in the last month?'
+        validate :not_blank, 'you must submit something'
       end
 
       step :trainee_selling_sq_qualitative_amount do
@@ -210,19 +219,23 @@ class VisitController < ApplicationController
 
          step :trainee_future_plans do
         input :trainee_future_plans, 'What is the trainee planning to do with his/her garden?'
+        validate :not_blank, 'you must submit something'
       end
 
 
          step :issues_and_challenges do
         input :issues_and_challenges, 'Are there any Issues or challenges with the garden?'
+         validate :not_blank, 'you must submit something'
       end
 
        step :garden_postivies do
         input :garden_postivies, 'What is good about the garden?'
+         validate :not_blank, 'you must submit something'
       end
 
        step :garden_possibile_improvements do
         input :garden_possibile_improvements, 'What could be better about the garden?'
+         validate :not_blank, 'you must submit something'
       end
 
       step :final_comments_SV do

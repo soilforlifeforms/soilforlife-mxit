@@ -10,38 +10,46 @@ class InitialQuestionnaireController < ApplicationController
 
       step :trainer do
         input :trainer, 'Trainer'
+        validate :not_blank, 'you must submit something'
       end
 
       step :group do
         input :group, 'Group'
+        validate :not_blank, 'you must submit something'
       end
 
            #could we have a  if params group exists in database no asking area?
 
       step :area do
         input :area, 'Area'
+        validate :not_blank, 'you must submit something'
       end
 
       step :trainee_first_name do
         input :trainee_first_name, 'What is your first name?'
+        validate :not_blank, 'you must submit something'
       end
 
       step :trainee_last_name do
         input :trainee_last_name, 'What is your surname?'
+        validate :not_blank, 'you must submit something'
       end
 
       step :trainee_id_number do
         input :trainee_id_number, 'What is your ID number?'
+        validate :not_blank, 'you must submit something'
      #   validate :sa_id_number, 'You must enter a valid South African ID number'
       end
 
       step :trainee_phone_number do
         input :trainee_phone_number, 'What is your phone number'
+        validate :not_blank, 'you must submit something'
        # validate :cellphone_number, 'Please enter a South African Cell Phone number'
       end
 
       step :home_address do
         input :home_address, 'What is your home address?'
+        validate :not_blank, 'you must submit something'
       end
 
       step :garden_location do
@@ -54,7 +62,9 @@ class InitialQuestionnaireController < ApplicationController
            return
          end
         input :garden_location_qualitative, 'What is your garden address?'
+        validate :not_blank, 'you must submit something'
       end
+
       step :age do
         select :age, 'Choose a category that includes your age?', {
           '< 18' => 'Under 18', 
@@ -300,6 +310,7 @@ class InitialQuestionnaireController < ApplicationController
            return
          end
         input :gardening_tools_other_qualitative, 'What other gardening tools do you have?'
+        validate :not_blank, 'you must submit something'
       end
 
         step :other_organisations do
@@ -316,6 +327,7 @@ class InitialQuestionnaireController < ApplicationController
            return
          end
         input :which_organisations, 'Which other organisations have you applied to?'
+        validate :not_blank, 'you must submit something'
       end
 
       step :help_recieved do
@@ -333,6 +345,7 @@ class InitialQuestionnaireController < ApplicationController
            return
          end
         input :help_recieved_qualitative, 'Who have you recieved help from?'
+        validate :not_blank, 'you must submit something'
       end
 
       step :previous_exerience do
@@ -348,6 +361,7 @@ class InitialQuestionnaireController < ApplicationController
            return
          end
         input :previous_experience_qualitative, 'What previous experience do you have?'
+        validate :not_blank, 'you must submit something'
        end
 
 
@@ -364,6 +378,7 @@ class InitialQuestionnaireController < ApplicationController
            return
          end
         input :currently_growing_qualitative_neg, 'Why are you not currently growing?'
+        validate :not_blank, 'you must submit something'
       end
 
       step :has_trainee_eaten_grown_veg do
@@ -438,6 +453,7 @@ class InitialQuestionnaireController < ApplicationController
            return
          end
         input :has_trainee_other_grown_veg_qualitative, 'What else have you been doing with your grown vegetables?'
+        validate :not_blank, 'you must submit something'
       end
 
       step :is_veg_bought_at_grocery_store_or_market do
@@ -481,6 +497,7 @@ class InitialQuestionnaireController < ApplicationController
            return
          end
         input :is_veg_bought_from_other_qualitative, 'Where else do you buy vegetables from?'
+        validate :not_blank, 'you must submit something'
       end
 
       step :money_spent_on_veg do
@@ -580,6 +597,7 @@ class InitialQuestionnaireController < ApplicationController
            return
          end
         input :health_problems_other_qualitative, 'What other health problems do you have?'
+        validate :not_blank, 'you must submit something'
       end
 
        step :anything_else_to_add do

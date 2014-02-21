@@ -10,15 +10,17 @@ class FinalQuestionnaireController < ApplicationController
 
       step :trainer do
         input :trainer, 'Trainer'
+        validate :not_blank, 'you must submit something'
       end
 
       step :group do
         input :group, 'Group'
+        validate :not_blank, 'you must submit something'
       end
 
       step :trainee_id_number do
         input :trainee_id_number, 'What is your ID number?'
-     #   validate :sa_id_number, 'You must enter a valid South African ID number'
+     validate :sa_id_number, 'You must enter a valid South African ID number'
       end
 
       step :change_of_address do
@@ -34,6 +36,7 @@ class FinalQuestionnaireController < ApplicationController
            return
          end
         input :change_of_adresss_qualitative, 'What is your new address?'
+        validate :not_blank, 'you must submit something'
       end
 
       step :change_of_maritial_status do
@@ -72,6 +75,7 @@ class FinalQuestionnaireController < ApplicationController
            return
          end
         input :change_of_living_arangements_qualitative, "How many people now live in your household?"
+        validate :not_blank, 'you must submit something'
       end
 
            step :change_of_employment do
@@ -133,6 +137,7 @@ class FinalQuestionnaireController < ApplicationController
            return
          end
         input :other_employment_qualitative, 'What is your employment type?'
+      validate :not_blank, 'you must submit something'
       end
 
       
@@ -159,26 +164,32 @@ class FinalQuestionnaireController < ApplicationController
 
       step :pros_about_training do
         input :pros_about_training, 'What was good about the training?'
+        validate :not_blank, 'you must submit something'
       end
 
       step :improvements_about_training do
         input :improvements_about_training, 'What could be better about the training?'
+        validate :not_blank, 'you must submit something'
       end
 
        step :what_was_learnt do
         input :what_was_learnt, 'What have you learnt from Soil for Life?'
+        validate :not_blank, 'you must submit something'
       end
 
        step :what_was_learnt_NB do
         input :what_was_learnt_NB, 'What is the most important thing you have learnt?'
+        validate :not_blank, 'you must submit something'
       end
 
       step :most_significant_change do
         input :most_significant_change, 'In the last year, what would you say is the most significant (biggest) change that has happened because of training with Soil for Life?'
+        validate :not_blank, 'you must submit something'
       end
 
       step :most_significant_change_qualitative do
         input :most_significant_change_qualitative, 'why is this change significant?'
+        validate :not_blank, 'you must submit something'
       end
 
       step :still_growing_fq do
@@ -195,10 +206,15 @@ class FinalQuestionnaireController < ApplicationController
            return
          end
         input :why_not_growing, 'Why have you stopped growing vegetables?'
+        :not_blank
       end
 
 
       step :type_of_veg_garden_trench_bed do
+         if params[:still_growing_fq] == 'No' 
+           skip_to :health_compaired_to_last_year 
+           return
+         end
         select :type_of_veg_garden_trench_bed, 'Do you have a trench-bed in your garden?', {
           'Yes' => 'Yes', 
           'No' => 'No',
@@ -252,11 +268,12 @@ class FinalQuestionnaireController < ApplicationController
       # Only show WhatOtherGardenSetup if other is chosen above
 
       step :type_of_veg_garden_other_qualitative do
-         if params[:type_of_veg_garden_other_qualitative] == 'No' 
+         if params[:type_of_veg_garden_other] == 'No' 
            skip_to :picking_veg
            return
          end
         input :type_of_veg_garden_other_qualitative, 'What other type of vegetable bed do you have in your food garden?'
+        :not_blank
       end
 
         step :picking_veg do
@@ -274,6 +291,7 @@ class FinalQuestionnaireController < ApplicationController
 
       step :currently_growing_fq do
         input :currently_growing_fq, 'What vegetables are you currently growing?'
+        :not_blank
        end
 
       step :still_buying do
@@ -367,6 +385,7 @@ class FinalQuestionnaireController < ApplicationController
            return
          end
         input :has_trainee_other_grown_veg_qualitative, 'What else have you been doing with your grown vegetables?'
+        validate :not_blank, 'you must submit something'
       end
 
       step :health_compaired_to_last_year do
@@ -420,10 +439,12 @@ class FinalQuestionnaireController < ApplicationController
            return
          end
         input :health_problems_other_qualitative, 'Where other health problems do you have?'
+        validate :not_blank, 'you must submit something'
       end
 
       step :feeling_towards_gardening do
         input :feeling_towards_gardening, 'How does working in the garden make you feel?'
+        validate :not_blank, 'you must submit something'
       end
 
         step :spreading_knowelage do
@@ -439,6 +460,7 @@ class FinalQuestionnaireController < ApplicationController
            return
          end
         input :spreading_knowelage_qualitative_pro, 'Who did you help and how?'
+        validate :not_blank, 'you must submit something'
       end
 
          step :spreading_knowelage_qualitative_neg do
@@ -447,7 +469,9 @@ class FinalQuestionnaireController < ApplicationController
            return
          end
         input :spreading_knowelage_qualitative_neg, 'Why did you not help anyone else to create a garden?'
+        validate :not_blank, 'you must submit something'
       end
+
       step :future_gardening_plans do
          select :future_gardening_plans , 'Now that the food garden programme has ended are you going to continue to grow food?', {
           'Yes' => 'Yes', 
@@ -462,6 +486,7 @@ class FinalQuestionnaireController < ApplicationController
            return
          end
           input :needs_to_continue_gardening, 'What do you need to continue gardening?'
+          validate :not_blank, 'you must submit something'
         end
 
         step :knowlage_of_life_skills do
@@ -480,6 +505,7 @@ class FinalQuestionnaireController < ApplicationController
 
         step :lifeskills_activity_recomendations do
           input :lifeskills_activity_recomendations, 'What sort of actives would you like to do in the Life Skills Programme?'
+          validate :not_blank, 'you must submit something'
         end
 
          step :final_words_fq do
@@ -491,7 +517,7 @@ class FinalQuestionnaireController < ApplicationController
         step :trainer_notes_fq do
           input :Trainer_notes_fq, 'Is there anything else you, as the trainer would like to note?'
         end
-        
+
       step :done do
         proceed 'Submit my information'
       end
