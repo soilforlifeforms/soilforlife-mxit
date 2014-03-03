@@ -7,7 +7,7 @@ class InitialQuestionnaireController < ApplicationController
         proceed 'Start the form'
         mxit_form_session[:dummy] = 'TEST'
       end
-
+    
       step :trainer do
         input :trainer, 'Trainer'
         validate :not_blank, 'you must submit something'
@@ -25,48 +25,57 @@ class InitialQuestionnaireController < ApplicationController
         validate :not_blank, 'you must submit something'
       end
 
-      step :trainee_first_name do
-        input :trainee_first_name, 'What is your first name?'
+      step :basic_details_first_name do
+        input :basic_details_first_name, 'What is your first name?'
         validate :not_blank, 'you must submit something'
       end
 
-      step :trainee_last_name do
-        input :trainee_last_name, 'What is your surname?'
+      step :basic_details_last_name do
+        input :basic_details_last_name, 'What is your surname?'
         validate :not_blank, 'you must submit something'
       end
 
-      step :trainee_id_number do
-        input :trainee_id_number, 'What is your ID number?'
+      step :basic_details_id_number do
+        input :basic_details_id_number, 'What is your ID number?'
         validate :not_blank, 'you must submit something'
      #   validate :sa_id_number, 'You must enter a valid South African ID number'
       end
 
-      step :trainee_phone_number do
-        input :trainee_phone_number, 'What is your phone number'
+      step :basic_details_phone_number do
+        input :basic_details_phone_number, 'What is your phone number'
         validate :not_blank, 'you must submit something'
        # validate :cellphone_number, 'Please enter a South African Cell Phone number'
       end
 
-      step :home_address do
-        input :home_address, 'What is your home address?'
+      step :basic_details_home_address do
+        input :basic_details_home_address, 'What is your home address?'
         validate :not_blank, 'you must submit something'
       end
 
-      step :garden_location do
-        select :garden_location, 'Is your garden located at your home address?', {'Yes' => 'Yes', 'No' => 'No'}
+      step :basic_details_garden_location do
+        select :basic_details_garden_location, 'Is your garden located at your home address?', {'Yes' => 'Yes', 'No' => 'No'}
       end
       
-      step :garden_location_qualitative do
-         if params[:garden_location] == 'Yes'
-           skip_to :age
+      step :basic_details_garden_location_qualitative do
+         if params[:basic_details_garden_location] == 'Yes'
+           skip_to :basic_details_garden_size_qualitative_l
            return
          end
-        input :garden_location_qualitative, 'What is your garden address?'
+        input :basic_details_garden_location_qualitative, 'What is your garden address?'
         validate :not_blank, 'you must submit something'
       end
 
-      step :age do
-        select :age, 'Choose a category that includes your age?', {
+      step :basic_details_garden_size_qualitative_l do
+        input :basic_details_garden_size_qualitative_l, 'what is the length of the garden?'
+      end
+
+      step :basic_details_garden_size_qualitative_w do
+        input :basic_details_garden_size_qualitative_w, 'what is the width of the garden?'
+      end
+
+
+      step :basic_details_age do
+        select :basic_details_age, 'Choose a category that includes your age?', {
           '< 18' => 'Under 18', 
           '18-14' => '18-24',
           '25-34' => '25-34',
@@ -78,11 +87,13 @@ class InitialQuestionnaireController < ApplicationController
         }
       end
 
-      step :gender do
-        select :gender, 'What is your gender?', {'male' => 'Male', 'female' => 'Female'}
+      step :basic_details_gender do
+        select :gender, 'What is your gender?', {
+          'male' => 'Male',
+          'female' => 'Female'}
       end
 
-      step :marital_status do
+      step :basic_details_marital_status do
         select :maritalStatus, 'what is your marital status?', {
           'single' => 'single', 
           'married' => 'married',
@@ -94,14 +105,14 @@ class InitialQuestionnaireController < ApplicationController
         }
       end
 
-      step :people_living_in_house do
-        input :people_living_in_house, 'How many people live in your household?'
+      step :basic_details_living_arrangements do
+        input :joining_details_living_arrangements, 'How many people live in your household?'
         validate :numeric, 'please use a numeric value, for example 1 or 2.'
       end
 
 
-      step :how_did_you_find_out do
-        select :how_did_you_find_out, 'How did you find out about soil for life', {
+      step :joining_details_referal do
+        select :joining_details_referal, 'How did you find out about soil for life', {
           'Friend or neighbour' => 'Friend or neighbour', 
           'A Soil for Life Trainer' => 'A Soil for Life Trainer',
           'A Soil for Life Event' => 'A Soil for Life Event',
@@ -110,22 +121,22 @@ class InitialQuestionnaireController < ApplicationController
       end
 
 
-      step :how_did_you_find_out_other do
-          if params[:how_did_you_find_out] != 'other'
-           skip_to :reason_for_joining
+      step :joining_details_referal_qualitative do
+          if params[:joining_details_referal] != 'other'
+           skip_to :joining_details_joining_reason
            return
          end
-        input :how_did_you_find_out_other, 'So how exactly did you find out about Soil For Life?'
+        input :joining_details_referal_qualitative, 'So how exactly did you find out about Soil For Life?'
       end
 
 
 
-      step :reason_for_joining do
-        input :reason_for_joining, 'Why do you want to do the Home Food Garden Programme?'
+      step :joining_details_joining_reason do
+        input :joining_details_joining_reason, 'Why do you want to do the Home Food Garden Programme?'
       end
 
-      step :perceptions_on_how_course_will_help_trainee do
-        input :perceptions_on_how_course_will_help_trainee, 'How do you think this programme will help you?'
+      step :joining_details_potential_growth do
+        input :joining_details_potential_growth, 'How do you think this programme will help you?'
       end
 
 
@@ -449,7 +460,7 @@ class InitialQuestionnaireController < ApplicationController
 
       step :has_trainee_other_grown_veg_qualitative do
         if params[:has_trainee_other_grown_veg] == 'No'
-           skip_to :where_veg_is_bought
+           skip_to :is_veg_bought_at_grocery_store_or_market
            return
          end
         input :has_trainee_other_grown_veg_qualitative, 'What else have you been doing with your grown vegetables?'
@@ -555,7 +566,7 @@ class InitialQuestionnaireController < ApplicationController
         end
 
       step :health_problems_diabetes do
-        select :health_problems_diabetes, 'Do you have diabetes:', {
+        select :health_problems_diabetes, 'Do you have diabetes?', {
           'Yes' => 'Yes', 
           'No' => 'No',
         }
@@ -564,21 +575,21 @@ class InitialQuestionnaireController < ApplicationController
 
 
       step :health_problems_cancer do
-        select :health_problems_cancer, 'Do you have cancer:', {
+        select :health_problems_cancer, 'Do you have cancer?', {
           'Yes' => 'Yes', 
           'No' => 'No',
         }
       end
 
        step :health_problems_arthritis do
-        select :health_problems_arthritis, 'Do you have arthritis:', {
+        select :health_problems_arthritis, 'Do you have arthritis?', {
           'Yes' => 'Yes', 
           'No' => 'No',
         }
       end
 
        step :health_problems_tb do
-        select :health_problems_tb, 'Do you have arthritis:', {
+        select :health_problems_tb, 'Do you have TB?', {
           'Yes' => 'Yes', 
           'No' => 'No',
         }
@@ -629,21 +640,23 @@ class InitialQuestionnaireController < ApplicationController
         item.trainer = params[:trainer]
         item.group = params[:group]
         item.area = params[:area]
-        item.trainee_first_name = params[:trainee_first_name]
-        item.trainee_last_name =  params[:trainee_last_name]
-        item.trainee_id_number = params[:trainee_id_number]
-        item.trainee_phone_number = params[:trainee_phone_number]
-        item.home_address = params[:home_address]
-        item.garden_location = params[:garden_location]
-        item.garden_location_qualitative = params[:garden_location_qualitative]
-        item.age = params[:age]
-        item.gender = params[:gender]
-        item.marital_status = params[:marital_status]
-        item.people_living_in_house = params[:people_living_in_house]
-        item.how_did_you_find_out = params[:how_did_you_find_out]
-        item.how_did_you_find_out_other = params[:how_did_you_find_out_other]
-        item.reason_for_joining = params[:reason_for_joining]
-        item.perceptions_on_how_course_will_help_trainee = params[:perceptions_on_how_course_will_help_trainee]
+        item.basic_details_first_name = params[:basic_details_first_name]
+        item.basic_details_last_name =  params[:basic_details_last_name]
+        item.basic_details_id_number = params[:basic_details_id_number]
+        item.basic_details_phone_number = params[:trainee_phone_number]
+        item.basic_details_home_address = params[:home_address]
+        item.basic_details_garden_location = params[:garden_location]
+        item.basic_details_garden_location_qualitative = params[:basic_details_garden_location_qualitative]
+        item.basic_details_garden_size_qualitative_l = params[:basic_details_garden_size_qualitative_l]
+        item.basic_details_garden_size_qualitative_w = params[:basic_details_garden_size_qualitative_w]
+        item.basic_details_age = params[:basic_details_age]
+        item.basic_details_gender = params[:basic_details_gender]
+        item.basic_details_marital_status = params[:basic_details_marital_status]
+        item.basic_details_living_arrangements = params[:basic_details_living_arrangements]
+        item.joining_details_referal = params[:joining_details_referal]
+        item.joining_details_referal_qualitative = params[:joining_details_referal_qualitative]
+        item.joining_details_joining_reason = params[:joining_details_joining_reason]
+        item.joining_details_potential_growth = params[:joining_details_potential_growth]
         itemeducation_levels = params[:education_levels]
         item.education_levels_other = params[:education_levels_other]
         item.employment = params[:employment]

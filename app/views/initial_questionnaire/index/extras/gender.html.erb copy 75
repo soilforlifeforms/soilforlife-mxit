@@ -1,5 +1,0 @@
-<%= mxit_table_row :title %>
-<b>Step 1 of many</b>
-
-<%= mxit_table_row %>
-<%= link_to 'Back', '/initial' %><br /><br />
