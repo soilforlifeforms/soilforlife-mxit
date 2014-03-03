@@ -7,9 +7,9 @@ class CreateInitialQuestionnaires < ActiveRecord::Migration
       t.string :basic_details_first_name
       t.string :basic_details_last_name
       t.string :basic_details_id_number
-      t.string :trainee_phone_number
-      t.string :home_address
-      t.string :garden_location
+      t.string :basic_details_phone_number
+      t.string :basic_details_home_address
+      t.string :basic_details_garden_location
       t.string :basic_details_garden_location_qualitative
       t.string :basic_details_garden_size_qualitative_l
       t.string :basic_details_garden_size_qualitative_w
