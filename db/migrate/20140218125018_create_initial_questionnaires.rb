@@ -4,21 +4,23 @@ class CreateInitialQuestionnaires < ActiveRecord::Migration
       t.string :trainer
       t.string :group
       t.string :area
-      t.string :trainee_first_name
-      t.string :trainee_last_name
-      t.string :trainee_id_number
+      t.string :basic_details_first_name
+      t.string :basic_details_last_name
+      t.string :basic_details_id_number
       t.string :trainee_phone_number
       t.string :home_address
       t.string :garden_location
-      t.string :garden_location_qualitative
-      t.string :age
-      t.string :gender
-      t.string :marital_status
-      t.string :people_living_in_house
-      t.string :how_did_you_find_out
-      t.string :how_did_you_find_out_other
-      t.string :reason_for_joining
-      t.string :perceptions_on_how_course_will_help_trainee
+      t.string :basic_details_garden_location_qualitative
+      t.string :basic_details_garden_size_qualitative_l
+      t.string :basic_details_garden_size_qualitative_w
+      t.string :basic_details_age
+      t.string :basic_details_gender
+      t.string :basic_details_marital_status
+      t.string :basic_details_living_arrangements
+      t.string :joining_details_referal
+      t.string :joining_details_referal_qualitative
+      t.string :joining_details_joining_reason
+      t.string :joining_details_potential_growth
       t.string :education_levels
       t.string :education_levels_other
       t.string :employment
