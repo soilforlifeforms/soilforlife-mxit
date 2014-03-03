@@ -1,4 +1,7 @@
-  def index
+class InitialQuestionnaireController < ApplicationController
+  include MxitRails::Page 
+
+def index
     @first_visit = params[:first_visit]
     form do 
       step :start do
