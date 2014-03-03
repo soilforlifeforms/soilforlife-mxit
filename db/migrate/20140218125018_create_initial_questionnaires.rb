@@ -73,6 +73,7 @@ class CreateInitialQuestionnaires < ActiveRecord::Migration
       t.string :health_problems_other_qualitative
       t.string :anything_else_to_add
       t.string :notes_from_the_trainer
+      t.string :done
      
       t.timestamps
     end
