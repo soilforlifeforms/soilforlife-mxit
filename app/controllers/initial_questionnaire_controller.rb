@@ -1,13 +1,13 @@
 class InitialQuestionnaireController < ApplicationController
   include MxitRails::Page 
-
-def index
+  def index
     @first_visit = params[:first_visit]
     form do 
       step :start do
         proceed 'Start the form'
         mxit_form_session[:dummy] = 'TEST'
       end
+    
       step :trainer do
         input :trainer, 'Trainer'
         validate :not_blank, 'you must submit something'
@@ -643,9 +643,9 @@ def index
         item.basic_details_first_name = params[:basic_details_first_name]
         item.basic_details_last_name =  params[:basic_details_last_name]
         item.basic_details_id_number = params[:basic_details_id_number]
-        item.basic_details_phone_number = params[:trainee_phone_number]
-        item.basic_details_home_address = params[:home_address]
-        item.basic_details_garden_location = params[:garden_location]
+        item.basic_details_phone_number = params[:basic_details_phone_number]
+        item.basic_details_home_address = params[:basic_details_home_address]
+        item.basic_details_garden_location = params[:basic_details_garden_location]
         item.basic_details_garden_location_qualitative = params[:basic_details_garden_location_qualitative]
         item.basic_details_garden_size_qualitative_l = params[:basic_details_garden_size_qualitative_l]
         item.basic_details_garden_size_qualitative_w = params[:basic_details_garden_size_qualitative_w]
