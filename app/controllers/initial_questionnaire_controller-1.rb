@@ -88,13 +88,13 @@ class InitialQuestionnaireController < ApplicationController
       end
 
       step :basic_details_gender do
-        select :basic_details_gender, 'What is your gender?', {
+        select :gender, 'What is your gender?', {
           'male' => 'Male',
           'female' => 'Female'}
       end
 
       step :basic_details_marital_status do
-        select :basic_details_marital_status, 'what is your marital status?', {
+        select :maritalStatus, 'what is your marital status?', {
           'single' => 'single', 
           'married' => 'married',
           'seperated' => 'seperated',
@@ -106,7 +106,7 @@ class InitialQuestionnaireController < ApplicationController
       end
 
       step :basic_details_living_arrangements do
-        input :basic_details_living_arrangements, 'How many people live in your household?'
+        input :joining_details_living_arrangements, 'How many people live in your household?'
         validate :numeric, 'please use a numeric value, for example 1 or 2.'
       end
 
@@ -184,7 +184,7 @@ class InitialQuestionnaireController < ApplicationController
       end
 
       step :part_time_employment do
-        select :part_time_employment, 'Are you currently employed part time?', {
+        select :part_time_employmen, 'Are you currently employed part time?', {
           'Yes' => 'Yes', 
           'No' => 'No',
         }
@@ -424,7 +424,7 @@ class InitialQuestionnaireController < ApplicationController
         end
 
       step :has_trainee_swapped_grown_veg do
-        select :has_trainee_swapped_grown_veg, 'Have you been swapping vegetables that you have grown over the past year? ', {
+        select :has_trainee_sold_grown_veg, 'Have you been swapping vegetables that you have grown over the past year? ', {
           'Yes' => 'Yes', 
           'No' => 'No',
         }
@@ -657,7 +657,7 @@ class InitialQuestionnaireController < ApplicationController
         item.joining_details_referal_qualitative = params[:joining_details_referal_qualitative]
         item.joining_details_joining_reason = params[:joining_details_joining_reason]
         item.joining_details_potential_growth = params[:joining_details_potential_growth]
-        item.education_levels = params[:education_levels]
+        itemeducation_levels = params[:education_levels]
         item.education_levels_other = params[:education_levels_other]
         item.employment = params[:employment]
         item.full_time_employment = params[:full_time_employment]
@@ -689,7 +689,7 @@ class InitialQuestionnaireController < ApplicationController
         item.profit_from_selling_veg = params[:profit_from_selling_veg]
         item.has_trainee_swapped_grown_veg = params[:has_trainee_swapped_grown_veg]
         item.has_trainee_shared_grown_veg = params[:has_trainee_shared_grown_veg]
-        item.has_trainee_given_grown_veg_to_soup_kitchen = params[:has_trainee_given_grown_veg_to_soup_kitchen]
+        item.has_trainee_given_grown_veg_to_soup_kitchen = params[:has_trainee_given_grown_veg_to_soup_kitchenhas_trainee_made_jams_and_chutney]
         item.has_trainee_made_jams_and_chutney = params[:has_trainee_made_jams_and_chutney]
         item.has_trainee_other_grown_veg = params[:has_trainee_other_grown_veg]
         item.has_trainee_other_grown_veg_qualitative = params[:has_trainee_other_grown_veg_qualitative]
