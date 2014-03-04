@@ -88,13 +88,13 @@ class InitialQuestionnaireController < ApplicationController
       end
 
       step :basic_details_gender do
-        select :gender, 'What is your gender?', {
+        select :basic_details_gender, 'What is your gender?', {
           'male' => 'Male',
           'female' => 'Female'}
       end
 
       step :basic_details_marital_status do
-        select :maritalStatus, 'what is your marital status?', {
+        select :basic_details_marital_status, 'what is your marital status?', {
           'single' => 'single', 
           'married' => 'married',
           'seperated' => 'seperated',
@@ -106,7 +106,7 @@ class InitialQuestionnaireController < ApplicationController
       end
 
       step :basic_details_living_arrangements do
-        input :joining_details_living_arrangements, 'How many people live in your household?'
+        input :basic_details_living_arrangements, 'How many people live in your household?'
         validate :numeric, 'please use a numeric value, for example 1 or 2.'
       end
 
@@ -657,7 +657,7 @@ class InitialQuestionnaireController < ApplicationController
         item.joining_details_referal_qualitative = params[:joining_details_referal_qualitative]
         item.joining_details_joining_reason = params[:joining_details_joining_reason]
         item.joining_details_potential_growth = params[:joining_details_potential_growth]
-        itemeducation_levels = params[:education_levels]
+        item.education_levels = params[:education_levels]
         item.education_levels_other = params[:education_levels_other]
         item.employment = params[:employment]
         item.full_time_employment = params[:full_time_employment]
