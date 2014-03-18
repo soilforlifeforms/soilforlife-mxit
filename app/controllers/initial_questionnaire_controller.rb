@@ -1,13 +1,13 @@
 class InitialQuestionnaireController < ApplicationController
   include MxitRails::Page 
   def index
-    @first_visit = params[:first_visit]
+  #  @first_visit = params[:first_visit]
     form do 
       step :start do
         proceed 'Start the form'
         mxit_form_session[:dummy] = 'TEST'
       end
-    
+
       step :trainer do
         input :trainer, 'Trainer'
         validate :not_blank, 'you must submit something'
@@ -132,13 +132,8 @@ class InitialQuestionnaireController < ApplicationController
 
 
       step :joining_details_joining_reason do
-        input :joining_details_joining_reason, 'Why do you want to do the Home Food Garden Programme?'
+        input :joining_details_joining_reason, 'Why do you want to learn how to grow veg?'
       end
-
-      step :joining_details_potential_growth do
-        input :joining_details_potential_growth, 'How do you think this programme will help you?'
-      end
-
 
        step :education_levels do
         select :education_levels, 'What is your highest level of education?', {
@@ -368,7 +363,7 @@ class InitialQuestionnaireController < ApplicationController
 
       step :previous_experience_qualitative do
          if params[:previous_exerience] == 'No'
-           skip_to :is_veg_bought_at_grocery_store_or_market
+           skip_to :veg_expenditure_location
            return
          end
         input :previous_experience_qualitative, 'What previous experience do you have?'
@@ -394,7 +389,7 @@ class InitialQuestionnaireController < ApplicationController
 
       step :has_trainee_eaten_grown_veg do
         if params[:currently_growing] == 'No'
-           skip_to :is_veg_bought_at_grocery_store_or_market
+           skip_to :veg_expenditure_location
            return
          end
         select :has_trainee_eaten_grown_veg, 'Have you been eating vegetables that you have grown over the past year? ', {
@@ -460,12 +455,30 @@ class InitialQuestionnaireController < ApplicationController
 
       step :has_trainee_other_grown_veg_qualitative do
         if params[:has_trainee_other_grown_veg] == 'No'
-           skip_to :is_veg_bought_at_grocery_store_or_market
+           skip_to :veg_expenditure_location
            return
          end
         input :has_trainee_other_grown_veg_qualitative, 'What else have you been doing with your grown vegetables?'
         validate :not_blank, 'you must submit something'
       end
+
+
+
+=begin  
+rescue Exception => e
+  
+=end
+      step :veg_expenditure_location do
+       multi_select :veg_expenditure_location, "when you buy vegetables, where do you usually buy them from? (pick all that apply)", {
+          'Grocery store or market' => 'Grocery store or market',
+           'Stand or stall' => 'Stand or stall',
+           'Tuck shop' => 'Tuck shop',
+           'Friends or neighbours' => 'Friends or neighbours',
+         }
+       end
+
+=begin
+this is the old way of asking the location of veg expenditure, but ended up being too long winded
 
       step :is_veg_bought_at_grocery_store_or_market do
         select :is_veg_bought_at_grocery_store_or_market, 'when you buy vegetables, do you usualy buy them from a grocery store or market ?', {
@@ -502,14 +515,17 @@ class InitialQuestionnaireController < ApplicationController
         }
       end
 
-      step :is_veg_bought_from_other_qualitative do
-        if params[:is_veg_bought_from_other] == 'No'
+
+      step :veg_expenditure_location_other do
+        if params[:veg_expenditure_location] != 'Other'
            skip_to :money_spent_on_veg
            return
          end
-        input :is_veg_bought_from_other_qualitative, 'Where else do you buy vegetables from?'
+        input :veg_expenditure_location_other, 'Where else do you buy vegetables from?'
         validate :not_blank, 'you must submit something'
       end
+=end
+
 
       step :money_spent_on_veg do
         select :money_spent_on_veg, 'How much money did you spend on vegetables in the last month?', {
@@ -542,7 +558,7 @@ class InitialQuestionnaireController < ApplicationController
 
 # Vegintake would be cool to validate with FoodIntake so that they can't place in higher VegIntake than FoodIntake
       step :veg_intake do
-        select :veg_intake, 'How many meals do you eat in one day?', {
+        select :veg_intake, 'Out of the meals you eat per day, how many include veg?', {
           'Dont know' => 'Dont know', 
           'one' => 'one',
           'two' => 'two',
@@ -571,8 +587,6 @@ class InitialQuestionnaireController < ApplicationController
           'No' => 'No',
         }
       end
-
-
 
       step :health_problems_cancer do
         select :health_problems_cancer, 'Do you have cancer?', {
@@ -693,12 +707,13 @@ class InitialQuestionnaireController < ApplicationController
         item.has_trainee_made_jams_and_chutney = params[:has_trainee_made_jams_and_chutney]
         item.has_trainee_other_grown_veg = params[:has_trainee_other_grown_veg]
         item.has_trainee_other_grown_veg_qualitative = params[:has_trainee_other_grown_veg_qualitative]
-        item.is_veg_bought_at_grocery_store_or_market = params[:is_veg_bought_at_grocery_store_or_market]
-        item.is_veg_bought_at_stand_or_stall  = params[:is_veg_bought_at_stand_or_stall ]
-        item.is_veg_bought_at_tuck_shop = params[:is_veg_bought_at_tuck_shop]
-        item.is_veg_bought_from_friends_or_neighbours = params[:is_veg_bought_from_friends_or_neighbours]
-        item.is_veg_bought_from_other = params[:is_veg_bought_from_other]
-        item.is_veg_bought_from_other_qualitative = params[:is_veg_bought_from_other_qualitative]
+        #item.veg_expenditure_location = params [:veg_expenditure_location]
+        #item.is_veg_bought_at_grocery_store_or_market = params[:is_veg_bought_at_grocery_store_or_market]
+        #item.is_veg_bought_at_stand_or_stall  = params[:is_veg_bought_at_stand_or_stall ]
+      # item.is_veg_bought_at_tuck_shop = params[:is_veg_bought_at_tuck_shop]
+       # item.is_veg_bought_from_friends_or_neighbours = params[:is_veg_bought_from_friends_or_neighbours]
+       # item.is_veg_bought_from_other = params[:is_veg_bought_from_other]
+        #item.veg_expenditure_location_other = params[:veg_expenditure_location_other]
         item.money_spent_on_veg = params[:money_spent_on_veg]
         item.food_intake = params[:food_intake]
         item.veg_intake = params[:veg_intake]
@@ -712,7 +727,8 @@ class InitialQuestionnaireController < ApplicationController
         item.anything_else_to_add = params[:anything_else_to_add]
         item.notes_from_the_trainer = params[:notes_from_the_trainer]
         item.save!
-        redirect_to '/initial'
+        reset!
+        #redirect_to '/initial'
       end
     end
   end
